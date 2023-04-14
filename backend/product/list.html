@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>商品管理</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav  sidebar sidebar-dark accordion " id="accordionSidebar" style="background-color: rgb(243, 243, 243);">
+
+            <!-- Sidebar - Brand -->
+          <div>
+            <img src="../img/Weeee!.svg" style="width: 180px; height: 70px; padding-left: 20px;">
+          </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item active ">
+                <a class="nav-link" href="../order/list.html">
+                    <!-- <i class="fas fa-fw fa-table"></i> -->
+                    <span style="font-size: 20px; color: #4484CE;">訂單管理</span></a>
+            </li>
+
+            <li class="nav-item active" style="background-color: #F19F4D">
+                <a class="nav-link" href="../product/list.html" >
+                    <!-- <i class="fas fa-fw fa-table"></i> -->
+                    <span style="font-size: 20px; color: white">商品管理</span></a>
+            </li>
+            
+            <li class="nav-item active">
+                <a class="nav-link" href="../member/list.html">
+                    <!-- <i class="fas fa-user"></i> -->
+                    <span style="font-size: 20px; color: #4484CE;">會員管理</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="../jo/list.html">
+                    <!-- <i class="fas fa-fw fa-table"></i> -->
+                    <span style="font-size: 20px; color: #4484CE;">揪團管理</span></a>
+            </li>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+                    
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Emily</span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    登出
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <form action="">
+                        <h1 class="h3 mb-2 text-gray-800">商品查詢</h1>
+                        <!-- <button type="button" class="btn btn-warning new_product" data-toggle="modal" data-target="#newProductModal" >新增商品</button> -->
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" placeholder="商品編號" class="member filter enter" name="productNumber" id="productNumber">
+                                <input type="text" placeholder="商品名稱" class="product_name filter enter" name="productName" id="productName">
+                                <select class="form_select" name="productStatus" id="productStatus">
+                                    <option value="">請選擇</option>
+                                    <option value="1">上架中</option>
+                                    <option value="0">下架中</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row row_bottom">
+                            <div class="col-12">
+                                <button type="button" class="filter button_bgc" id="sightseeing" onclick="toggleProductType(this);">觀光行程</button>
+                                <button type="button" class="filter button_bgc" id="experience" onclick="toggleProductType(this);">體驗活動</button>
+                                <button type="button" class="filter button_bgc" id="transticket" onclick="toggleProductType(this);">交通票卡</button>
+                                <button type="button" class="filter button_bgc" id="viewpointticket" onclick="toggleProductType(this);">景點門票</button>
+                                <button type="button" class="btn btn-warning submit_button" id="searchBtn" onclick="search();">搜尋</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold list_style">商品列表</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="app">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>商品編號</th>
+                                            <th>商品名稱</th>
+                                            <th>類別</th>
+                                            <th>狀態</th>
+                                            <th>動作</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr v-for="(product, index) in productList" :key="index">
+                                            <td>{{product.ProductNumber}}</td>
+                                            <td>{{product.ProductName}}</td>
+                                            <td v-if="product.ProductType == 'experience'">體驗活動</td>
+                                            <td v-else-if="product.ProductType == 'sightseeing'">觀光行程</td>
+                                            <td v-else-if="product.ProductType == 'viewpointticket'">景點門票</td>
+                                            <td v-else-if="product.ProductType == 'transticket'">交通票卡</td>
+                                            <td v-if="product.ProductStatus == 1">上架中</td>
+                                            <td v-else>下架中</td>
+                                            <td><a :href="'./detail.html?productID=' + product.ProductID">編輯<i class="fas fa-pen" style="margin-left: 10px; cursor: pointer;"></i></a>
+                                            </td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">確定要登出嗎?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">離開前，記得要儲存所有變更唷!</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                    <a class="btn btn-primary" href="../php/logout.php">登出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 新增商品modal -->
+    <!-- <div class="modal fade" id="newProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">商品內容</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="" class="add">商品名稱</label>
+                            <input type="text" class="filter">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="" class="add">商品單價</label>
+                            <input type="text" class="filter">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="new_product_type" class="add">商品類別</label>
+                            <select class="form_select" name="new_product_type" id="new_product_type">
+                                <option value="sightseeing">觀光行程</option>
+                                <option value="experience">體驗活動</option>
+                                <option value="trans">交通票卡</option>
+                                <option value="ticket">景點門票</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label add">上傳圖片</label>
+                                <input class="form-control" type="file" id="formFileMultiple" multiple style="padding: .180rem .75rem;">
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row">
+                        <div class="col-12">
+                            <label for="new_product_text" class="add">商品說明</label>
+                            <textarea name="new_product_text" id="new_product_text" class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="new_buy_text" class="add">購買說明</label>
+                            <textarea name="new_buy_text" id="new_buy_text" class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="modal-footer"> -->
+                    <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                    <!-- <a class="btn btn-primary" href="list.html">新增</a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+     <!-- Bootstrap core JavaScript-->
+     <script src="../vendor/jquery/jquery.min.js"></script>
+     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+     <!-- Core plugin JavaScript-->
+     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+ 
+     <!-- Custom scripts for all pages-->
+     <script src="../js/sb-admin-2.min.js"></script>
+ 
+     <!-- Page level plugins -->
+     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+ 
+     <!-- Page level custom scripts -->
+     <script src="../js/demo/datatables-demo.js"></script>
+
+     <!-- 加入vue -->
+     <script src="../vendor/vue/vue.global.js"></script>
+     <!-- <script src="./vendors/vue/vue.global.prod.js"></script> -->
+
+     <!-- 加入sweet alert -->
+     <script src="../vendor/sweetAlert/sweetalert2.all.min.js"></script>
+    
+     <!-- 加入date picker -->
+     <script src="../vendor/jquery-ui-1.13.2/jquery-ui.js"></script>
+
+    <script>
+    let queryProductTypeList = [];
+    function toggleProductType(e){
+        $(e).toggleClass("button_bgc_focus");
+        if(queryProductTypeList.includes($(e).attr("id"))){
+            var index = queryProductTypeList.indexOf($(e).attr("id"));
+            queryProductTypeList.splice(index, 1);
+        }else{
+            queryProductTypeList.push($(e).attr("id"));
+        }
+        console.log(queryProductTypeList);
+    }
+    
+         // 按enter可送出搜尋
+         $(document).ready(function(){
+            let enter = document.getElementsByClassName("enter");
+            for(let i = 0; i < enter.length; i++){
+                $(enter[i]).keyup(function(event){
+                    if(event.which == 13){
+                        $("#searchBtn").click();
+                    }
+                })
+            }
+        });
+    
+      let dataTable;
+      let productList;
+      
+      //一進到此頁面，發請求去資料庫要所有會員資料
+      $.ajax({
+        method: "GET",
+        url: "../php/query_product.php",
+        async: false, //開啟同步化功能，讓response先回來，再走下面的初始化vue
+        data: {},
+        dataType: "json",
+        success: function (response) {
+        //防止直接打網址進入
+        if (response.loginCheckFailed) {
+        window.location.href = "../login.html";
+        }
+          console.log(response);
+          productList = response;
+        },
+      });
+
+      const RootComponent = {
+        data() {
+          // 用vue把下列資料顯示在html上
+          return {
+            productList: productList,
+          };
+        },
+        // methods: {
+        //     toggleStatus: function(memberNumber){
+               
+        //         Swal.fire({
+        //             position: "center",
+        //             icon: "success",
+        //             title: "修改成功",
+        //             showConfirmButton: false,
+        //             timer: 1000,
+        //         }).then(function(){
+        //             window.location.href = "../php/memberStatusToggle.php?memberNumber=" + memberNumber;
+        //         });
+        //     }
+        // },
+        mounted() {
+          // 掛載完成後，初始化DataTable
+          dataTable = $("#dataTable").DataTable();
+        },
+        beforeUpdate() {
+          // 更新資料之前，將舊的DataTable毀掉
+          dataTable.destroy();
+        },
+        updated() {
+          // 新的資料更新完後，再重新初始化DataTable
+          dataTable = $("#dataTable").DataTable();
+        },
+      };
+
+      var app = Vue.createApp(RootComponent);
+      var vm = app.mount("#app"); //如果想操控這個vue，都需要透過vm
+
+      function search() {
+        $.ajax({
+          data: {
+            productName: document.getElementById("productName").value,
+            productNumber: document.getElementById("productNumber").value,
+            productStatus: document.getElementById("productStatus").value,
+            productType: queryProductTypeList
+          },
+          url: "../php/query_product.php",
+          async: false,
+          method: "GET",
+          dataType: "json",
+          success: function (response) {
+            console.log(123);
+            vm.$data.productList = response;
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
+
+        return; //serach()這個方法結束了
+      }
+    </script>
+
+
+
+</body>
+
+</html>

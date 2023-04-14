@@ -1,0 +1,197 @@
+
+.terms_of_use{
+  
+  .topbanner{
+    margin-bottom: 35px;
+    @include m {
+      margin-bottom: 20px;
+    }
+  }
+  .content{
+display: flex;
+.content__left{
+  width: 200px;
+  height: 1000px;
+  // background-color: red;
+  @include m {
+    
+    width: 350px;
+    display: none;
+ 
+ 
+  }
+  .user-btn{
+    position: relative;
+    margin-bottom: 35px;
+    @include m {
+      font-size: 14px;
+     
+   
+    }
+    &.active a{
+      color: $blue;
+    }
+
+    &:before{
+      content: '';
+      width: 3px;
+      height: 20px;
+      position: absolute;
+      top: 2px;
+      left: -11px;
+      // color: $blue;
+      background-color: $blue;
+      @include m {
+        left:-9px;
+       
+     
+      }
+
+
+    }
+  }
+
+  .privacy-btn{
+    @include m {
+   font-size: 16px;
+     
+   
+    }
+  }
+}
+
+  .content__right{
+    width: 1000px;
+    // height: 1000px;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+  
+    display: flex;
+    flex-direction: column;
+  .content__right__time{
+    margin-left: auto;
+    // float: right;
+
+    
+
+  }
+  .title{
+    margin-bottom: 25px;
+    font-weight: bold;
+    @include m {
+      margin-bottom: 20px;
+      font-size: 20px;
+   
+    }
+  }
+
+  .inner{
+    margin-bottom: 25px;
+    @include m {
+      margin-bottom: 20px;
+     font-size: 14px;
+    }
+  }
+  .content__right__version{
+    margin-left: auto;
+    margin-bottom: 30px;
+  }
+
+  .content__right__need{
+    font-size: 14px;
+    margin-bottom: 50px;
+    font-weight: bold;
+    @include m {
+      margin-bottom: 20px;
+   
+    }
+
+  }
+  }
+}
+
+    .use{
+      color:$white;
+      position: relative;
+      
+      // &::before{
+      //   display: block;
+      //   content: "|";
+      //   color: blue;
+       
+      //   font-size: 16px;
+      //   // position:absolute;
+      //  margin-left: 40px;
+      //  margin-top:134px;
+      // }
+    }
+  .user{
+    color: $blue;
+  margin-top:90px;
+  }
+    .topbanner{
+      background-color: $blue;
+      text-align: center;
+    }
+    
+    
+  //   .user1{
+  //     width: 80px;
+      
+  // margin-top: 40px;
+  
+  // margin-left: 80px;
+  // font-family: 'Inter';
+  // font-style: normal;
+  // font-weight: 400;
+  // font-size: 16px;
+  // line-height: 25px;
+  
+  //   }
+  
+  // header {
+  //     height: 165px;
+  //     width: 1280px;
+  //     background-color: $gray;
+  //     position: fixed;
+  //     top: 0;
+  //     left: 0;
+  //     font-size: 40px;
+  //     color: $white;
+  //     text-align: center;
+  //     padding-top: 60px;
+  //     box-sizing: border-box;
+  //   }
+  // .date{
+   
+  //   width: 195px;
+  //   height: 19px;
+   
+    
+  //   font-family: 'Inter';
+  //   font-style: normal;
+  //   font-weight: 400;
+  //   font-size: 16px;
+  
+    
+  //   color: #000000;
+  // }
+  //   .topbanner {
+      
+  //     height: 130px;
+  //     // background-size: cover;
+  //     // background-position: center center;
+  
+  //     .topbanner__text {
+  //       // color:$buy_primary;
+  //       //color: $blue;
+  //       text-align: center;
+  //       padding-top: 33px;
+  //     }
+    
+     
+  //   }
+}
+  
+   

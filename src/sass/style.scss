@@ -1,0 +1,271 @@
+@use "sass:math";
+@import "./base/base.scss";
+@import "./mixin/mixin.scss";
+@import "./component/component.scss";
+@import "./page/page.scss";
+// .htob {
+//   // header下方和banner不要有空隙時 給banner
+//   margin-top: 165px;
+// }
+
+.nb {
+  // 沒有麵包屑時 給內容
+  padding-top: 50px;
+}
+
+.hb {
+  // 有麵包屑時 給麵包屑
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.ftoc {
+  //footer to 內容 給footer
+  margin-top: 80px;
+}
+
+.ttoc {
+  //card to title & title to card 給title
+  margin-top: 70px;
+  margin-bottom: 35px;
+}
+
+.ctoc {
+  // card to card 給上方的card
+  margin-bottom: 100px;
+}
+
+.wrapper {
+  // 每個頁面的最外層
+  line-height: 1.6;
+  font-size: $default_fz;
+  font-family: Microsoft JhengHei;
+}
+
+.container {
+  // 需要包在1200px裡面的內容
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.price {
+  // product的價格顯示
+  font-size: $pc_price;
+  font-weight: bold;
+}
+
+.gray {
+  // card下方的灰色文字顯示
+  font-size: $pc_gray;
+  color: $gray;
+}
+
+.product-tag {
+  padding: 2.5px 4px;
+  font-size: 16px;
+  color: $white;
+  background-color: $orange;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.orange {
+  color: $orange;
+}
+
+// #produ {
+//   width: 1000px;
+//   margin: 0 auto;
+// }
+
+[v-cloak] {
+  display: none;
+}
+
+.blueBtn {
+  @include btn($blue, $white, 10px);
+  transition: all 0.3s;
+  &:hover {
+    background-color: $orange;
+    color: $white;
+
+    @include m {
+      background-color: $blue;
+    }
+  }
+}
+
+.yellowBtn {
+  @include btn($yellow, $black, 10px);
+
+  transition: all 0.3s;
+  &:hover {
+    background-color: $orange;
+    color: $white;
+    @include m {
+      background-color: $yellow;
+      color: $black;
+    }
+  }
+}
+
+.orangeBtn {
+  @include btn($orange, $white, 10px);
+}
+
+h1 {
+  font-size: $pc_h1;
+}
+
+h2 {
+  font-size: $pc_h2;
+}
+
+h3 {
+  font-size: $pc_h3;
+}
+
+h4 {
+  font-size: $pc_h4;
+}
+
+h5 {
+  font-size: $pc_h5;
+}
+
+h6 {
+  font-size: $pc_h6;
+}
+
+@include xl {
+  // 1200以內
+}
+
+@include m {
+  // 768以內
+  .price {
+    font-size: $rwd_price;
+    font-weight: bold;
+  }
+
+  .gray {
+    font-size: $rwd_gray;
+    color: $gray;
+  }
+
+  h1 {
+    font-size: $rwd_h1;
+    // color: $blue;
+  }
+
+  h2 {
+    font-size: $rwd_h2;
+  }
+
+  h3 {
+    font-size: $rwd_h3;
+  }
+
+  h4 {
+    font-size: $rwd_h4;
+  }
+
+  h5 {
+    font-size: $rwd_h5;
+  }
+
+  h6 {
+    font-size: $rwd_h6;
+  }
+
+  .ttoc {
+    //card to title & title to card 給title
+    margin-top: 50px;
+    margin-bottom: 25px;
+  }
+
+  .ftoc {
+    //footer to 內容 給footer
+    margin-top: 30px;
+  }
+
+  .container {
+    // 需要包在1200px裡面的內容
+    margin: 0 auto;
+    max-width: 400px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.text-danger {
+  color: #ef7a70;
+}
+.em {
+  color: #e61f6e;
+}
+
+input,
+textarea,
+select:focus {
+  outline: none;
+}
+
+.noHover {
+  pointer-events: none;
+}
+
+/*麵包屑*/
+.breadcrumbList {
+  // margin-top: 5px;
+  .breadcrumb {
+    display: flex;
+    li {
+      padding: 20px 15px 20px 0px;
+
+      @include m {
+        padding: 10px 5px 0px 0px;
+        font-size: 12px;
+      }
+
+      &::before {
+        content: ">";
+        color: $blue;
+        padding-right: 15px;
+
+        @include m {
+          padding-right: 5px;
+        }
+      }
+
+      &:first-child::before {
+        content: "";
+      }
+
+      &:last-child {
+        color: $orange;
+      }
+    }
+
+    a {
+      color: $blue;
+      font-weight: 100;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      @include m {
+        font-size: 12px;
+      }
+
+      &:hover {
+        color: $orange;
+      }
+    }
+  }
+}

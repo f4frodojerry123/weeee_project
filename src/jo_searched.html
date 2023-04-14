@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weeee!</title>
+    <link rel="icon" href="img/otherpage/Weeee.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/85f014293c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    @@include('layout/header.html')
+    <div class="wrapper jo_index app1 jo_searched">
+      <div v-cloak>
+        <div
+          class="black_bg"
+          @click="closeSelectbar"
+          v-if="show_lightbox"
+        ></div>
+        <div class="select_loc_box" v-if="show_lightbox">
+          <h1>
+            選擇地點
+            <i class="fa-solid fa-xmark" @click="closeSelectbar"></i>
+          </h1>
+          <ul>
+            <li
+              v-for="(item, index) in AllCitys"
+              @click="changeSelectbar(item)"
+              
+            >
+              {{item}}
+            </li>
+          </ul>
+        </div>
+        <div class="topbanner">
+          <div class="container topbanner__text">
+            <h1>揪遊趣!</h1>
+            <p>探索揪團旅程</p>
+            <div class="search_location" @click="openSelectbar">
+              <i class="fa-solid fa-location-dot"></i>
+              {{location_selected}}
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="searchbox">
+              <input
+                type="text"
+                placeholder="想做什麼？"
+                @keyup.enter="jump_jo_searched"
+                v-model="keyword"
+              />
+              <button @click="jump_jo_searched"><h5>搜尋</h5></button>
+            </div>
+          </div>
+        </div>
+        <div class="midbanner container">
+          <div class="icon_map">
+            <div>
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <h5>尋找喜愛的旅程</h5>
+            </div>
+            <i class="fa-solid fa-angles-right"></i>
+            <div>
+              <i class="fa-solid fa-comment-dots"></i>
+              <h5>提交申請給團主</h5>
+            </div>
+            <i class="fa-solid fa-angles-right"></i>
+            <div>
+              <i class="fa-solid fa-circle-check"></i>
+              <h5>團主審核通過</h5>
+            </div>
+            <i class="fa-solid fa-angles-right"></i>
+            <div>
+              <i class="fa-solid fa-child-reaching"></i>
+              <h5>出團遊玩</h5>
+            </div>
+          </div>
+        </div>
+        <div class="container content">
+          <h2 class="ttoc">全部結果 <span>{{count}}</span>項</h2>
+          <div class="jo-list container" id="searched_list">
+            <a class="jo-card" 
+            :href="'./jo_detail.html?id=' + jo.JoID"
+            v-for="jo in jo_list" 
+            >
+              <div class="jo-card__top__location">
+                <i class="fa-solid fa-location-dot"></i>
+                <p class="jo__location">{{jo.Location}}</p>
+              </div>
+              <div class="jo-card__top">
+                <div class="jo-card__top__pic">
+                  <div
+                    class="jo-card__top__pic__src j1"
+                    v-bind:style="{ backgroundImage: 'url(' + jo.JoImg + ')' }"
+                  ></div>
+                </div>
+              </div>
+              <div class="jo-card__bottom">
+                <h6 class="jo-name">{{jo.JoTitle}}</h6>
+                <span class="gray jo__detailaddress"
+                  >{{jo.JoDetailedAddressed}}</span
+                >
+                <span class="gray jo-time">{{jo.week}},{{jo.JoStartDate}}</span>
+                <span class="jo-card__bottom__message"
+                  ><span class="member-pic m1"
+                  v-bind:style="{ backgroundImage: 'url(' + jo.MemberImg + ')' }"></span
+                  ><span class="member-name">{{jo.FullName}}</span>
+                  <span class="left-time">剩餘{{jo.left_days}}天</span></span
+                >
+              </div>
+            </a>
+
+          </div>
+          <a id="jo_button" 
+          href="#"
+          @click="jump_jo_new">
+            <img src="./img/jo/jo_create.gif" alt="" />
+            <h5>發起揪團</h5>
+          </a>
+          <div class="jo_scrollToTop">
+            <i class="fa-solid fa-angle-up" @click="scrollToTop"></i>
+          </div>
+        </div>
+      </div>
+
+      @@include('layout/footer.html')
+    </div>
+    
+    <script src="./vender/vue/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/jo_searched.js"></script>
+  </body>
+</html>

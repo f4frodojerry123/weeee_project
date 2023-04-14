@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weeee!</title>
+    <link rel="icon" href="img/otherpage/Weeee.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/85f014293c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    @@include('layout/header.html')
+  
+    <div class="wrapper account">
+      <div class="container">
+        <div class="breadcrumbList container">
+          <ol class="breadcrumb">
+            <li><a href="index.html">首頁</a></li>
+            <li style="color: #4484ce">會員中心</li>
+            <li>帳號設定</li>
+          </ol>
+        </div>
+        <div class="mid">
+          <div class="left_bar">
+            <div class="img_block">
+              <img class="mem_img" id="mem_img" style="cursor: pointer;" onclick="changeImage(this);">
+              <form id="memberImgForm" action="php/updateMemImage.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" id="originalUrl" name="originalUrl">  
+                <button id = "memberImgBtn" class="blueBtn" type="button" onclick="submitForm();"style="font-size: 15px; padding: 5px 15px; display: none;">確認</button>
+              </form>
+              <h5 id="fullName"></h5>
+            </div>
+            <div class="page_list">
+              <ul>
+                <li>
+                  <a href="account_order.html">
+                    <div>
+                      <i class="fa-regular fa-newspaper"></i>
+                    </div>
+
+                    訂單管理
+                  </a>
+                </li>
+
+                <li>
+                  <a href="account_jo.html">
+                    <div>
+                      <i class="fa-solid fa-user-group"></i>
+                    </div>
+
+                    我的揪團
+                  </a>
+                </li>
+
+                <li>
+                  <a href="account_favor.html">
+                    <div><i class="fa-solid fa-heart"></i></div>
+
+                    我的收藏
+                  </a>
+                </li>
+                <li>
+                  <a href="account_point.html">
+                    <div>
+                      <img src="./img/weeeepoints/blue.svg" alt="" />
+                    </div>
+
+                    Weeee! Points
+                  </a>
+                </li>
+                <li >
+                  <a href="account_setting.html" id="on_page">
+                    <div>
+                      <i class="fa-solid fa-gear"></i>
+                    </div>
+
+                    帳號設定
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="content">
+            <h4>帳號設定</h4>
+            <form id="updateForm" action="php/account_setting.php" method="post">
+              <div class="setting">
+                <div class="row name">
+                  <div class="form_group">
+                    <label for="">姓氏</label>
+                    <input type="text" id="lastName" name="lastName"/>
+                  </div>
+                  <div class="form_group">
+                    <label for="">名字</label>
+                    <input type="text" id="firstName" name="firstName"/>
+                  </div>
+                  <div class="form_group">
+                    <label for="">性別</label>
+                    <select name="sex" id="sex">
+                      <option value="1">男</option>
+                      <option value="0">女</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form_group">
+                    <label for="">英文姓(同護照)</label>
+                    <input type="text" id="englishLastName" name="englishLastName"/>
+                  </div>
+                  <div class="form_group">
+                    <label for="">英文名(同護照)</label>
+                    <input type="text" id="englishFirstName" name="englishFirstName"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form_group">
+                    <label for="">護照號碼</label>
+                    <input type="text" id="passport" name= "passport"/>
+                  </div>
+                  <div class="form_group">
+                    <label for="">國家/地區</label>
+                    <input list="countrys" name="country" id="country" />
+                    <datalist id="countrys">
+                      <option value="台灣"></option>
+                      <option value="中國"></option>
+                      <option value="日本"></option>
+                      <option value="韓國"></option>
+                      <option value="越南"></option>
+                      <option value="美國"></option>
+                      <option value="加拿大"></option>
+                      <option value="俄羅斯"></option>
+                      <option value="馬來西亞"></option>
+                      <option value="新加坡"></option>
+                      <option value="印度尼西亞"></option>
+                      <option value="菲律賓"></option>
+                      <option value="泰國"></option>
+                      <option value="澳大利亞"></option>
+                      <option value="紐西蘭"></option>
+                      <option value="緬甸"></option>
+                      <option value="印度"></option>
+                      <option value="法國"></option>
+                      <option value="英國"></option>
+                      <option value="西班牙"></option>
+                      <option value="葡萄牙"></option>
+                      <option value="比利時"></option>
+                      <option value="荷蘭"></option>
+                      <option value="德國"></option>
+                      <option value="義大利"></option>
+                      <option value="波蘭"></option>
+                      <option value="挪威"></option>
+                      <option value="瑞典"></option>
+                      <option value="芬蘭"></option>
+                      <option value="烏克蘭"></option>
+                      <option value="立陶宛"></option>
+                      <option value="愛沙尼亞"></option>
+                    </datalist>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form_group" id="phone_group">
+                    <label for="">電話號碼</label>
+                    <div>
+                      <input type="text" id="phone" name="phone"/>
+                    </div>
+                  </div>
+                  <div class="form_group">
+                    <label for="">E-MAIL</label>
+                    <input type="text" id="username" class= "disabled" name="username"  disabled/>
+                  </div>
+                </div>
+                <div class="row" id="date_group">
+                  <div class="form_group">
+                    <label for="">出生日期</label>
+                    <div>
+                      <input type="date" id="birthDate" name="birthDate"/>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row interest">
+                  <h5>興趣喜好</h5>
+                  <div class="row">
+                    <div>
+                      <input type="checkbox" id="friend" name="friend"/>
+                      <label for="friend"> 朋友行程 </label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="family" name="family"/>
+                      <label for="family"> 家庭行程 </label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="couple" name="couple"/>
+                      <label for="couple"> 情侶行程 </label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="pet" name="pet"/>
+                      <label for="pet"> 寵物行程 </label>
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                    <div>
+                      <input type="checkbox" id="handmade" name="handmade"/>
+                      <label for="handmade"> 手作體驗 </label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="onwater" name="onwater"/>
+                      <label for="onwater"> 水上活動 </label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="farm" name="farm"/>
+                      <label for="farm"> 觀光農場 </label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="extreme" name="extreme"/>
+                      <label for="extreme"> 極限運動 </label>
+                    </div>
+                  </div>
+                </div>
+                  <button onclick="submitUpdateForm();" type="button" class="save" >儲存</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        @@include('layout/footer.html')
+
+
+      </div>
+    </div>
+    <script src="vender/jquery/jquery.min.js"></script>
+    <script src="./vender/vue/vue.global.prod.js"></script>
+    <script src="js/header.js"></script>
+    <!-- 加入sweet alert -->
+    <script src="./vender/sweetAlert/sweetalert2.all.min.js"></script>    
+    <script>
+      
+      //會員一進到此頁面，就發送請求到後端取資料
+      $.ajax({
+        method: "GET",
+        url: "php/query_account_setting.php",
+        data: {},
+        dataType: "json",
+        success: function(response){
+            let person = {
+              lastName: response.LastName,
+              firstName: response.FirstName,
+              fullName: response.LastName + response.FirstName,
+              sex: response.Sex,
+              englishLastName: response.EnglishLastName,
+              englishFirstName: response.EnglishFirstName,
+              passport: response.Passport,
+              country: response.Country,
+              phone: response.Phone,
+              username: response.Username,
+              birthDate: response.Birthdate,
+              interest: {    //物件中的物件
+                friend: response.Friend == "1"? true : false,
+                family: response.Family == "1"? true : false,
+                couple: response.Couple == "1"? true : false,
+                pet: response.Pet == "1"? true : false,
+                handmade: response.Handmade == "1"? true : false,
+                onwater: response.Onwater == "1"? true : false,
+                farm: response.Farm == "1"? true : false,
+                extreme: response.Extreme == "1"? true : false
+              },
+             
+            }
+            $("#fullName").html(person.lastName + person.firstName);
+            $("#lastName").val(person.lastName);
+            $("#firstName").val(person.firstName);
+            $("#sex").val(person.sex);
+            $("#englishLastName").val(person.englishLastName);
+            $("#englishFirstName").val(person.englishFirstName);
+            $("#passport").val(person.passport);
+            $("#country").val(person.country);
+            $("#phone").val(person.phone);
+            $("#username").val(person.username);
+            $("#birthDate").val(person.birthDate);
+            $("#friend").attr("checked", person.interest.friend);
+            $("#family").attr("checked", person.interest.family);
+            $("#couple").attr("checked", person.interest.couple);
+            $("#pet").attr("checked", person.interest.pet);
+            $("#handmade").attr("checked", person.interest.handmade);
+            $("#onwater").attr("checked", person.interest.onwater);
+            $("#farm").attr("checked", person.interest.farm);
+            $("#extreme").attr("checked", person.interest.extreme);
+        },
+        error: function(exception){
+          alert("錯誤");
+        }
+
+      });
+
+      function submitUpdateForm() {
+        Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "修改成功",
+                showConfirmButton: false,
+                timer: 1000,
+            }).then(function(){
+                $("#updateForm").submit();
+            });
+      }
+
+      $(document).ready(function() {
+              $.ajax({
+                  method: "GET",
+                  url: "php/query_account_setting.php",
+                  data: {},
+                  dataType: "json",
+                  success: function (response) {
+                    $("#mem_img").attr("src", response.MemberImg);
+                    $("#fullName").html(response.LastName + response.FirstName);
+                    let url = window.location.href;
+                    $("#originalUrl").val(url.substring(url.lastIndexOf("/") + 1));
+                  }
+                });
+            }); 
+
+            function changeImage(e) {
+              let id = "imageFile";
+              if (!document.getElementById(id)) {
+                  $("#memberImgForm").append(
+                  `
+                      <input type="file" id="${id}" name="${id}" style="display:none;">
+                  `
+                  )
+              }
+              document.getElementById(id).addEventListener("change", function() {
+                  // 讀取file
+                  let fileList = this.files;
+                  let file = fileList[0];
+                  let fileReader = new FileReader();
+                  fileReader.readAsDataURL(file);
+                  fileReader.addEventListener("load", function(){
+                      $("#mem_img").attr("src", fileReader.result);
+                      $("#memberImgBtn").show();
+                  });
+              });
+              $("#" + id).click();
+        }
+
+        function submitForm() {
+          Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "修改成功",
+                showConfirmButton: false,
+                timer: 1000,
+            }).then(function(){
+                $("#memberImgForm").submit();
+            });
+        }
+    </script>
+  </body>
+</html>

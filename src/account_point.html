@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weeee!</title>
+    <link rel="icon" href="img/otherpage/Weeee.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/85f014293c.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./vender/datatables/datatables.min.css">
+<!-- 
+    <link rel="stylesheet" href="./vender/datatables/dataTables.bootstrap4.css"> -->
+  </head>
+  <body>
+    @@include('layout/header.html')
+
+    <div class="wrapper account account_point">
+      <div class="container">
+        <div class="breadcrumbList container">
+          <ol class="breadcrumb">
+            <li><a href="index.html">首頁</a></li>
+            <li style="color: #4484ce">會員中心</li>
+            <li>Weeee! Points</li>
+          </ol>
+        </div>
+        <div class="mid">
+          <div class="left_bar">
+            <div class="img_block">
+              <img class="mem_img" id="mem_img" style="cursor: pointer;" onclick="changeImage(this);">
+              <form id="memberImgForm" action="php/updateMemImage.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" id="originalUrl" name="originalUrl">  
+                <button id = "memberImgBtn" class="blueBtn" type="button" onclick="submitForm();"style="font-size: 15px; padding: 5px 15px; display: none;">確認</button>
+              </form>
+              <h5 id="fullName"></h5>
+            </div>
+            <div class="page_list">
+              <ul>
+                <li>
+                  <a href="account_order.html">
+                    <div>
+                      <i class="fa-regular fa-newspaper"></i>
+                    </div>
+
+                    訂單管理
+                  </a>
+                </li>
+
+                <li>
+                  <a href="account_jo.html">
+                    <div>
+                      <i class="fa-solid fa-user-group"></i>
+                    </div>
+
+                    我的揪團
+                  </a>
+                </li>
+
+                <li>
+                  <a href="account_favor.html">
+                    <div><i class="fa-solid fa-heart"></i></div>
+
+                    我的收藏
+                  </a>
+                </li>
+                <li>
+                  <a href="account_point.html" id="on_page">
+                    <div>
+                     <img src="./img/weeeepoints/orange.svg" class="">
+                    </div>
+                    Weeee! Points
+                  </a>
+                </li>
+                <li>
+                  <a href="account_setting.html">
+                    <div>
+                      <i class="fa-solid fa-gear"></i>
+                    </div>
+
+                    帳號設定
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="content">
+            <h4>Weeee! Points</h4>
+            <div class="w_point">
+              <h5>目前可使用點數</h5>
+              <img src="./img/weeeepoints/yellow.svg" alt="">
+              <h5 class="point_count" id="count"></h5>
+            </div>
+
+            <div class="points">
+              <h5 class="how_use">Weeee! Points 怎麼用?</h5>
+              <div class="how_use_rule">
+                <i class="fa-regular fa-hand-point-right pointer_right"></i>
+                <p class="rule">
+                  於Weeee! 進行消費，每100元將回饋1點 Weeee! Point
+                  <br/>可於下次預訂時折抵訂單總金額，1點可折抵新台幣1元<br />
+                  每筆訂單最多可折抵總金額的20%
+                </p>
+              </div>
+              <hr>
+              <h5>點數紀錄</h5>
+            <div class="point_record">
+                <div class="table-responsive" >
+                    <table class="table row-border stripe hover" id="dataTable" width="100%" cellspacing="0" >
+                        <thead>
+                            <tr class="table-head">
+                                <th>訂單編號</th>
+                                <th>日期</th>
+                                <th>總金額</th>  
+                                <th>點數</th>                      
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+            </div>
+        
+      </div>
+      @@include('layout/footer.html')
+    </div>
+  
+    <script src="vender/jquery/jquery.min.js"></script>
+    <script src="./vender/vue/vue.global.prod.js"></script>
+    <script src="js/header.js"></script>
+    <script src="./vender/datatables/jquery.dataTables.min.js"></script>
+    <script src="./vender/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- 加入sweet alert -->
+    <script src="./vender/sweetAlert/sweetalert2.all.min.js"></script>
+    <script>
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+       
+    });
+
+    //一進到頁面，就發請求去資料庫取點數資料
+    $.ajax({
+        method: "GET",
+        url: "php/query_account_point.php",
+        data: {},
+        dataType: "json",
+        success: function (response) {
+          //印到HTML上
+          let tbody = document.getElementById("tbody");
+          let sum = 0;
+          for (let i = 0; i < response.length; i++) {
+            let point_content = `
+              <tr>
+                <td>${response[i].OrderNumber}</td>
+                <td>${response[i].OrderDate}</td>
+                <td>${response[i].TotalPrice}</td> 
+                <td>${response[i].PointsChange}</td>            
+              </tr>
+      `;
+            tbody.insertAdjacentHTML("beforeend", point_content);
+            sum = sum + parseInt(response[i].PointsChange);
+            
+          }
+          document.getElementById("count").innerHTML = sum;
+          $('#dataTable').DataTable({
+            paging: false, // 拿掉一頁顯示幾個篩選結果
+            "searching": false, // 拿掉搜尋bar
+            "info": false, // 拿掉左下角共幾個結果的資訊
+            "ordering": false
+        });
+        
+        },
+      });
+
+
+      $(document).ready(function() {
+              $.ajax({
+                  method: "GET",
+                  url: "php/query_account_setting.php",
+                  data: {},
+                  dataType: "json",
+                  success: function (response) {
+                    $("#mem_img").attr("src", response.MemberImg);
+                    $("#fullName").html(response.LastName + response.FirstName);
+                    let url = window.location.href;
+                    $("#originalUrl").val(url.substring(url.lastIndexOf("/") + 1));
+                  }
+                });
+            }); 
+
+            function changeImage(e) {
+              let id = "imageFile";
+              if (!document.getElementById(id)) {
+                  $("#memberImgForm").append(
+                  `
+                      <input type="file" id="${id}" name="${id}" style="display:none;">
+                  `
+                  )
+              }
+              document.getElementById(id).addEventListener("change", function() {
+                  // 讀取file
+                  let fileList = this.files;
+                  let file = fileList[0];
+                  let fileReader = new FileReader();
+                  fileReader.readAsDataURL(file);
+                  fileReader.addEventListener("load", function(){
+                      $("#mem_img").attr("src", fileReader.result);
+                      $("#memberImgBtn").show();
+                  });
+              });
+              $("#" + id).click();
+        }
+
+        function submitForm() {
+          Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "修改成功",
+                showConfirmButton: false,
+                timer: 1000,
+            }).then(function(){
+                $("#memberImgForm").submit();
+            });
+        }
+    </script>
+  </body>
+</html>

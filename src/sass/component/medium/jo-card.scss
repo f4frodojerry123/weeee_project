@@ -1,0 +1,170 @@
+.jo-list {
+  display: flex;
+  position: relative;
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 45px;
+    color: $yellow;
+  }
+
+  @include m {
+    width: 350px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .slick-prev:before {
+    position: absolute;
+    top: 0px;
+    left: -50px;
+  }
+  .slick-next:before {
+    position: absolute;
+    top: 0px;
+    right: -50px;
+  }
+  .jo-card {
+    // width: 390px;
+    width: 320px;
+    height: 300px;
+    position: relative;
+    cursor: pointer;
+    // margin-right: 20px;
+    margin: 0 10px;
+    background-color: $white;
+    border-radius: 10px;
+
+    @include m {
+      height: auto;
+    }
+    &:hover .jo-card__top__pic {
+      transform: scale(1.2);
+      @include m {
+        transform: none;
+      }
+    }
+
+    .jo-card__top__location {
+      color: $white;
+      position: absolute;
+      width: 70px;
+      height: 30px;
+      // background-color: $blue;
+      z-index: 15;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      top: 10px;
+      left: 10px;
+      .fa-location-dot {
+        // position: absolute;
+        // top: 20px;
+        // left: 20px;
+        // z-index: 15;
+      }
+
+      .jo__location {
+        // position: absolute;
+        // top: 20px;
+        // left: 40px;
+        // z-index: 15;
+      }
+    }
+
+    .jo-card__top {
+      color: $white;
+      // width: 390px;
+      height: 155px;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      // transition: all 0.3s;
+      overflow: hidden;
+
+      .jo-card__top__pic {
+        width: 100%;
+        height: 100%;
+        transition: 0.3s;
+
+        .jo-card__top__pic__src {
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+
+          &.j1 {
+            background-image: url("../img/jo/jo_nanjingeasteat1.jpg");
+          }
+
+          &.j2 {
+            background-image: url("../img/jo/jo_boardgame1.jpg");
+          }
+
+          &.j3 {
+            background-image: url("../img/jo/jo_raohenightmarket1.jpg");
+          }
+        }
+      }
+    }
+
+    .jo-card__bottom {
+      display: flex;
+      flex-direction: column;
+      padding: 0 5px 5px;
+
+      .jo-name {
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: $black;
+      }
+
+      .jo-card__bottom__message {
+        display: flex;
+        align-items: center;
+        .member-pic {
+          display: block;
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          //   border: solid red 1px;
+          background-size: cover;
+          background-position: center center;
+          margin-right: 10px;
+        }
+        .member-name {
+          color: $black;
+        }
+        .left-time {
+          margin-left: auto;
+          color: $black;
+        }
+      }
+    }
+  }
+
+  @include xl {
+    // 1200以內
+    // .slick-prev:before,
+    // .slick-next:before {
+    //   font-size: 25px;
+    // }
+
+    // .slick-prev:before {
+    //   position: absolute;
+    //   top: 0px;
+    //   left: 0px;
+    // }
+    // .slick-next:before {
+    //   position: absolute;
+    //   top: 0px;
+    //   right: 0px;
+    // }
+  }
+  @include m {
+    .slick-prev:before,
+    .slick-next:before {
+      display: none;
+    }
+  }
+}

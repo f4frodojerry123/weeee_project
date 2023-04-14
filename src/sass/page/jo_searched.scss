@@ -1,0 +1,45 @@
+.jo_index.jo_searched{
+    .jo_scrollToTop{
+        background-color: $orange;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        position: fixed;
+        right: 10px;
+        bottom: 70px;
+        border-radius: 10px;
+        i {
+        color: $white;
+        font-size: $pc_h1;
+        }
+        
+    }
+
+        .jo-list{
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            
+    
+            @include m{
+                width: 100%;
+                flex-direction: column;
+                margin-bottom: 0;
+                justify-content: center;
+            }
+            .jo-card{
+                margin: 5px;
+                margin-bottom: 10px;
+                @include m{
+                    margin: 0 auto;
+                }
+                
+                
+            }
+            
+        }
+
+    
+    
+
+}

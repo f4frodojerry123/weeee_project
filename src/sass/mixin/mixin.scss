@@ -1,0 +1,58 @@
+@mixin xxl() {
+  @media all and (max-width: $xxl_breakpoint) {
+    // 1400px以內
+    @content;
+  }
+}
+
+@mixin xl() {
+  @media all and (max-width: $xl_breakpoint) {
+    // 1200px以內
+    @content;
+  }
+}
+
+@mixin lg() {
+  @media all and (max-width: $lg_breakpoit) {
+    // 992px以內
+    @content;
+  }
+}
+
+@mixin m() {
+  @media all and (max-width: $m_breakpoint) {
+    // 768px以內
+    @content;
+  }
+}
+
+@mixin sm() {
+  @media all and (max-width: $sm_breakpoint) {
+    // 576px以內
+    @content;
+  }
+}
+
+@mixin t_color() {
+  @for $i from 1 through 6 {
+  }
+}
+
+// btn
+@mixin btn($bgc, $color, $borderRadius: null) {
+  background-color: $bgc;
+  text-align: center;
+  // width: $size;
+  padding: 10px 30px;
+  font-size: 20px;
+  color: $color;
+  cursor: pointer;
+  border-radius: $borderRadius;
+  transition: 0.2 all ease-in-out;
+  box-sizing: border-box;
+  border: none;
+
+  // &:hover {
+  //   background-color: darken($bgc, 10);
+  // }
+}

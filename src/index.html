@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weeee!</title>
+    <link rel="icon" href="img/otherpage/Weeee.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css"
+    />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <!-- <header-shoppingcart-vue></header-shoppingcart-vue> -->
+    @@include('layout/header.html')
+
+    <div class="wrapper index">
+      <div v-cloak>
+        <div class="topbanner">
+          <div class="container topbanner__text">
+            <h1>全台灣最讚的旅遊體驗</h1>
+            <h1>帶你探索有趣又獨特的旅遊體驗行程</h1>
+          </div>
+        </div>
+
+        <div class="container index__container">
+          <template v-if="memberInterestList.length">
+            <h2 class="ttoc">您可能有興趣的行程</h2>
+
+            <!-- @@include('layout/productSlide.html') -->
+
+            <div class="product-list interest-list">
+              <a
+                class="product-card"
+                v-for="(p,i) in memberInterestList"
+                :key="i"
+              >
+                <div
+                  class="change-heart"
+                  :class="{'clicked':favorProductList.includes(p.ProductID) }"
+                  @click="clickHeart(p.ProductID,$event)"
+                >
+                  <i class="fa-regular fa-heart" ref="hollow"></i>
+                  <i class="fa-solid fa-heart orange" ref="solid"></i>
+                </div>
+                <div class="product-card__location">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <p class="p__location">{{p.Location}}</p>
+                </div>
+
+                <div
+                  class="product-card__top"
+                  @click="gotoproductDetail(p.ProductID)"
+                >
+                  <div class="product-card__top__pic">
+                    <div
+                      class="product-card__top__picsrc"
+                      :style="{ backgroundImage: 'url(' + p.ProductImgPath1+ ')' }"
+                    ></div>
+                  </div>
+                </div>
+
+                <div
+                  class="product-card__bottom"
+                  @click="gotoproductDetail(p.ProductID)"
+                >
+                  <span class="product-tag">{{p.ProductSecondType}}</span>
+                  <h6 class="product-name">{{p.ProductName}}</h6>
+                  <span class="gray"
+                    ><i class="fa-solid fa-star"></i
+                    >4.4({{p.ProductScoredPeople}}) |
+                    <span class="product-bought"
+                      >{{Number(p.ProductPurchased) >= 1000 ?
+                      Math.trunc(Number(p.ProductPurchased) / 1000) + "K+"
+                      :Number(p.ProductPurchased) }}</span
+                    >個已訂購
+                  </span>
+                  <span class="price"
+                    >TWD
+                    <span class="product-price">{{p.ProductPrice}}</span
+                    >元</span
+                  >
+                </div>
+              </a>
+            </div>
+          </template>
+          <h2 class="ttoc">即將出團</h2>
+          <div class="jo-list">
+            <a
+              class="jo-card"
+              v-for="(jo,i) in jo_list_end"
+              :href="'./jo_detail.html?id=' + jo.JoID"
+            >
+              <div class="jo-card__top__location">
+                <i class="fa-solid fa-location-dot"></i>
+                <p class="jo__location">{{jo.Location}}</p>
+              </div>
+              <div class="jo-card__top">
+                <div class="jo-card__top__pic">
+                  <div
+                    class="jo-card__top__pic__src"
+                    :style="{ backgroundImage: 'url(' + jo.JoImg+ ')' }"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="jo-card__bottom"
+                :href="'./jo_detail.html?id=' + jo.JoID"
+              >
+                <h6 class="jo-name">
+                  {{jo.JoTitle.length >10 ? jo.JoTitle.slice(0,10) + '……' :
+                  jo.JoTitle}}
+                </h6>
+                <span class="gray jo__detailaddress"
+                  >{{jo.JoDetailedAddressed}}</span
+                >
+                <span class="gray jo-time"
+                  >星期五, {{jo.JoStartDate.slice(0,16)}}</span
+                >
+                <span class="jo-card__bottom__message"
+                  ><span
+                    class="member-pic"
+                    :style="{ backgroundImage: 'url(' + jo.MemberImg+ ')' }"
+                  ></span
+                  ><span class="member-name">{{jo.FullName}}</span>
+                  <span class="left-time">剩餘{{jo.left_days }}天</span></span
+                >
+              </div>
+            </a>
+          </div>
+
+          <h2 class="ttoc">探索熱門城市</h2>
+          <div class="popular-country__list">
+            <div
+              class="popular-country c1"
+              :class="{'active':current_hover === 1 && !popularRWD }"
+              @mouseenter="popularMouse(1)"
+            >
+              <a
+                href="./productlist.html?msort=ss&local=南投"
+                class="popular-country__link"
+              >
+                <div class="overlap"></div>
+                <h3 class="caption">南投</h3>
+              </a>
+              <div class="popular-country__bottom">
+                <a href="./productlist.html?msort=tt&local=南投" class="travel"
+                  >交通 & 旅遊必備</a
+                >
+                <a href="./productlist.html?msort=vp&local=南投" class="ticket"
+                  >熱門票券</a
+                >
+                <a href="./productlist.html?msort=ep&local=南投" class="local"
+                  >更多在地體驗</a
+                >
+                <span
+                  href="./productlist.html?msort=ss&local=南投"
+                  class="number__items"
+                  >{{popularNumber[1]}} 個相關項目</span
+                >
+              </div>
+            </div>
+            <div
+              class="popular-country c2"
+              :class="{'active':current_hover === 2 && !popularRWD}"
+              @mouseenter="popularMouse(2)"
+            >
+              <a
+                href="./productlist.html?msort=ss&local=台中"
+                class="popular-country__link"
+              >
+                <div class="overlap"></div>
+                <h3 class="caption">台中</h3>
+              </a>
+              <div class="popular-country__bottom">
+                <a href="./productlist.html?msort=tt&local=台中" class="travel"
+                  >交通 & 旅遊必備</a
+                >
+                <a href="./productlist.html?msort=vp&local=台中" class="ticket"
+                  >熱門票券</a
+                >
+                <a href="./productlist.html?msort=ep&local=台中" class="local"
+                  >更多在地體驗</a
+                >
+                <span
+                  href="./productlist.html?msort=ss&local=台中"
+                  class="number__items"
+                  >{{popularNumber[2]}} 個相關項目</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="popular-country c3"
+              :class="{'active':current_hover === 3 && !popularRWD}"
+              @mouseenter="popularMouse(3)"
+            >
+              <a
+                href="./productlist.html?msort=ss&local=彰化"
+                class="popular-country__link"
+              >
+                <div class="overlap"></div>
+                <h3 class="caption">彰化</h3>
+              </a>
+              <div class="popular-country__bottom">
+                <a href="./productlist.html?msort=tt&local=彰化" class="travel"
+                  >交通 & 旅遊必備</a
+                >
+                <a href="./productlist.html?msort=vp&local=彰化" class="ticket"
+                  >熱門票券</a
+                >
+                <a href="./productlist.html?msort=ep&local=彰化" class="local"
+                  >更多在地體驗</a
+                >
+                <span
+                  href="./productlist.html?msort=ss&local=彰化"
+                  class="number__items"
+                  >{{popularNumber[3]}} 個相關項目</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="popular-country c4"
+              :class="{'active':current_hover === 4  && !popularRWD}"
+              @mouseenter="popularMouse(4)"
+            >
+              <a
+                href="./productlist.html?msort=ss&local=新竹"
+                class="popular-country__link"
+              >
+                <div class="overlap"></div>
+                <h3 class="caption">新竹</h3>
+              </a>
+              <div class="popular-country__bottom">
+                <a href="./productlist.html?msort=tt&local=新竹" class="travel"
+                  >交通 & 旅遊必備</a
+                >
+                <a href="./productlist.html?msort=vp&local=新竹" class="ticket"
+                  >熱門票券</a
+                >
+                <a href="./productlist.html?msort=ep&local=新竹" class="local"
+                  >更多在地體驗</a
+                >
+                <span
+                  href="./productlist.html?msort=ss&local=新竹"
+                  class="number__items"
+                  >{{popularNumber[4]}} 個相關項目</span
+                >
+              </div>
+            </div>
+            <div
+              class="popular-country c5"
+              :class="{'active':current_hover === 5  && !popularRWD}"
+              @mouseenter="popularMouse(5)"
+            >
+              <a
+                href="./productlist.html?msort=ss&local=台南"
+                class="popular-country__link"
+              >
+                <div class="overlap"></div>
+                <h3 class="caption">台南</h3>
+              </a>
+              <div class="popular-country__bottom">
+                <a href="./productlist.html?msort=tt&local=台南" class="travel"
+                  >交通 & 旅遊必備</a
+                >
+                <a href="./productlist.html?msort=vp&local=台南" class="ticket"
+                  >熱門票券</a
+                >
+                <a href="./productlist.html?msort=ep&local=台南" class="local"
+                  >更多在地體驗</a
+                >
+                <span
+                  href="./productlist.html?msort=ss&local=台南"
+                  class="number__items"
+                  >{{popularNumber[0]}} 個相關項目</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <h2 class="ttoc">Top 10 熱門商品</h2>
+          <div class="product-list top10-list">
+            <a class="product-card" v-for="(p,i) in top10List" :key="i">
+              <div
+                class="change-heart"
+                :class="{'clicked':favorProductList.includes(p.ProductID) }"
+                @click="clickHeart(p.ProductID,$event)"
+              >
+                <i class="fa-regular fa-heart" ref="hollow"></i>
+                <i class="fa-solid fa-heart orange" ref="solid"></i>
+              </div>
+              <div class="product-card__location">
+                <i class="fa-solid fa-location-dot"></i>
+                <p class="p__location">{{p.Location}}</p>
+              </div>
+
+              <div
+                class="product-card__top"
+                @click="gotoproductDetail(p.ProductID)"
+              >
+                <div class="product-card__top__pic">
+                  <div
+                    class="product-card__top__picsrc p1"
+                    :style="{ backgroundImage: 'url(' + p.ProductImgPath1+ ')' }"
+                  ></div>
+                </div>
+              </div>
+
+              <div
+                class="product-card__bottom"
+                @click="gotoproductDetail(p.ProductID)"
+              >
+                <span class="product-tag">{{p.ProductSecondType}}</span>
+                <h6 class="product-name">{{p.ProductName}}</h6>
+                <span class="gray"
+                  ><i class="fa-solid fa-star"></i
+                  >4.4({{p.ProductScoredPeople}}) |
+                  <span class="product-bought"
+                    >{{Number(p.ProductPurchased) >= 1000 ?
+                    Math.trunc(Number(p.ProductPurchased) / 1000) + "K+"
+                    :Number(p.ProductPurchased) }}</span
+                  >個已訂購
+                </span>
+                <span class="price"
+                  >TWD
+                  <span class="product-price">{{p.ProductPrice}}</span>元</span
+                >
+              </div>
+            </a>
+          </div>
+
+          <h2 class="ttoc">在尋找主題樂園的相關商品嗎？ 👇👇</h2>
+          <div class="product-list theme-list">
+            <a class="product-card" v-for="(p,i) in themeList" :key="i">
+              <div
+                class="change-heart"
+                :class="{'clicked':favorProductList.includes(p.ProductID) }"
+                @click="clickHeart(p.ProductID,$event)"
+              >
+                <i class="fa-regular fa-heart" ref="hollow"></i>
+                <i class="fa-solid fa-heart orange" ref="solid"></i>
+              </div>
+              <div class="product-card__location">
+                <i class="fa-solid fa-location-dot"></i>
+                <p class="p__location">{{p.Location}}</p>
+              </div>
+              <div
+                class="product-card__top"
+                @click="gotoproductDetail(p.ProductID)"
+              >
+                <div class="product-card__top__pic">
+                  <div
+                    class="product-card__top__picsrc p1"
+                    :style="{ backgroundImage: 'url(' + p.ProductImgPath1+ ')' }"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="product-card__bottom"
+                @click="gotoproductDetail(p.ProductID)"
+              >
+                <span class="product-tag">{{p.ProductSecondType}}</span>
+                <h6 class="product-name">{{p.ProductName}}</h6>
+                <span class="gray"
+                  ><i class="fa-solid fa-star"></i
+                  >4.4({{p.ProductScoredPeople}}) |
+                  <span class="product-bought"
+                    >{{Number(p.ProductPurchased) >= 1000 ?
+                    Math.trunc(Number(p.ProductPurchased) / 1000) + "K+"
+                    :Number(p.ProductPurchased) }}</span
+                  >個已訂購
+                </span>
+                <span class="price"
+                  >TWD
+                  <span class="product-price">{{p.ProductPrice}}</span>元</span
+                >
+              </div>
+            </a>
+          </div>
+
+          <h2 class="ttoc">精選特色體驗就在這👇👇</h2>
+          <div class="product-list experience-list">
+            <a class="product-card" v-for="(p,i) in experienceList" :key="i">
+              <div
+                class="change-heart"
+                :class="{'clicked':favorProductList.includes(p.ProductID) }"
+                @click="clickHeart(p.ProductID,$event)"
+              >
+                <i class="fa-regular fa-heart" ref="hollow"></i>
+                <i class="fa-solid fa-heart orange" ref="solid"></i>
+              </div>
+              <div class="product-card__location">
+                <i class="fa-solid fa-location-dot"></i>
+                <p class="p__location">{{p.Location}}</p>
+              </div>
+              <div
+                class="product-card__top"
+                @click="gotoproductDetail(p.ProductID)"
+              >
+                <div class="product-card__top__pic">
+                  <div
+                    class="product-card__top__picsrc p1"
+                    :style="{ backgroundImage: 'url(' + p.ProductImgPath1+ ')' }"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="product-card__bottom"
+                @click="gotoproductDetail(p.ProductID)"
+              >
+                <span class="product-tag">{{p.ProductSecondType}}</span>
+                <h6 class="product-name">{{p.ProductName}}</h6>
+                <span class="gray"
+                  ><i class="fa-solid fa-star"></i
+                  >4.4({{p.ProductScoredPeople}}) |
+                  <span class="product-bought"
+                    >{{Number(p.ProductPurchased) >= 1000 ?
+                    Math.trunc(Number(p.ProductPurchased) / 1000) + "K+"
+                    :Number(p.ProductPurchased) }}</span
+                  >個已訂購
+                </span>
+                <span class="price"
+                  >TWD
+                  <span class="product-price">{{p.ProductPrice}}</span>元</span
+                >
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="bottombanner">
+          <div class="container bottom__text">
+            <span class="medium">旅遊體驗行程首選</span>
+            <span class="bigger">Weeee!</span>
+          </div>
+        </div>
+        <div class="lazybag">
+          <h4 class="lazybag__title">國內旅遊懶人包</h4>
+          <div class="lazybag__list">
+            <a href="./productlist.html?msort=vp&local=基隆">基隆景點</a>
+            <a href="./productlist.html?msort=vp&local=台北">台北景點 </a>
+            <a href="./productlist.html?msort=vp&local=新北">新北景點</a>
+            <a href="./productlist.html?msort=vp&local=桃園">桃園景點</a>
+            <a href="./productlist.html?msort=vp&local=新竹">新竹景點</a>
+            <a href="./productlist.html?msort=vp&local=苗栗">苗栗景點</a>
+            <a href="./productlist.html?msort=vp&local=台中">台中景點</a>
+            <a href="./productlist.html?msort=vp&local=彰化">彰化景點</a>
+            <a href="./productlist.html?msort=vp&local=南投">南投景點</a>
+            <a href="./productlist.html?msort=vp&local=雲林">雲林景點</a>
+            <a href="./productlist.html?msort=vp&local=嘉義">嘉義景點</a>
+            <a href="./productlist.html?msort=vp&local=台南">台南景點</a>
+            <a href="./productlist.html?msort=vp&local=高雄">高雄景點</a>
+            <a href="./productlist.html?msort=vp&local=屏東">屏東景點</a>
+          </div>
+        </div>
+
+        <div class="easydin">
+          <h4 class="easydin__title">旅遊交通輕鬆訂</h4>
+          <div class="easydin__list">
+            <a href="./productlist.html?msort=tt&local=基隆">基隆交通</a>
+            <a href="./productlist.html?msort=tt&local=台北">台北交通 </a>
+            <a href="./productlist.html?msort=tt&local=新北">新北交通</a>
+            <a href="./productlist.html?msort=tt&local=桃園">桃園交通</a>
+            <a href="./productlist.html?msort=tt&local=新竹">新竹交通</a>
+            <a href="./productlist.html?msort=tt&local=苗栗">苗栗交通</a>
+            <a href="./productlist.html?msort=tt&local=台中">台中交通</a>
+            <a href="./productlist.html?msort=tt&local=彰化">彰化交通</a>
+            <a href="./productlist.html?msort=tt&local=南投">南投交通</a>
+            <a href="./productlist.html?msort=tt&local=雲林">雲林交通</a>
+            <a href="./productlist.html?msort=tt&local=嘉義">嘉義交通</a>
+            <a href="./productlist.html?msort=tt&local=台南">台南交通</a>
+            <a href="./productlist.html?msort=tt&local=高雄">高雄交通</a>
+            <a href="./productlist.html?msort=tt&local=屏東">屏東交通</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    @@include('layout/footer.html')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="./vender/vue/vue.global.js"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="./js/slick_slider.js"></script> -->
+    <script src="./js/header.js"></script>
+    <!-- <script src="./js/footer.js"></script> -->
+    <script src="./js/headerShoppingcartVue.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <script src="./js/index.js"></script>
+    <!-- <script src="./js/productSlideVue.js"></script> -->
+  </body>
+</html>

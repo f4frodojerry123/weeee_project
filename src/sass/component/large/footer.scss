@@ -1,0 +1,169 @@
+@import "../../base/base";
+
+* {
+    box-sizing: border-box;
+}
+
+.footer_wrapper {
+    background-color: #444444;
+    color: $white;
+
+
+    .footer_container {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+        padding: 20px 0;
+
+        @include m {
+            flex-direction: column;
+        }
+
+        .footer_left {
+            font-size: 14px;
+
+            @include m {
+                order: 2;
+                text-align: center;
+                padding-top: 20px;
+                color: #9c9da0;
+            }
+        }
+
+        .footer_center {
+            font-size: 14px;
+
+            @include m {
+                order: 1;
+            }
+
+            ul {
+                @include m {
+                    display: flex;
+                    // justify-content: center;
+                }
+
+                li:last-child a {
+                    @include m {
+                        border-right: none;
+                    }
+                }
+
+                li {
+                    @include m {
+                        flex-grow: 1;
+                    }
+
+                    a {
+                        color: $white;
+                        text-decoration: none;
+
+                        @include m {
+                            border-right: solid 2px #fff;
+                            padding: 0 10px;
+                        }
+
+                        a:last-child {
+
+                            @include m {
+                                border-right: none;
+
+                            }
+                        }
+
+                        &:hover {
+                            color: #9c9da0;
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+        .footer_right {
+            font-size: 14px;
+
+            @include m {
+                display: none;
+            }
+
+            &_tips {
+                p {
+                    margin-top: 6px;
+                    font-size: 12px;
+
+                    a {
+                        color: #9c9da0;
+                        text-decoration: underline;
+                    }
+                }
+
+            }
+
+            &_input {
+                margin-top: 12px;
+
+                input {
+                    width: 259px;
+                    height: 40px;
+                    padding: 7px 12px;
+                    border-radius: 8px 0 0 8px;
+                    border: none;
+                    outline: 0;
+                    font-size: 14px;
+                    background-color: $white;
+                }
+
+                button {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    font-weight: 500;
+                    width: 101px;
+                    height: 40px;
+                    background-color: $blue;
+                    border: 1px solid $blue;
+                    border-radius: 0 8px 8px 0;
+                    outline: 0;
+                    color: #fff;
+                    cursor: pointer;
+                    transition: all .3s;
+                }
+
+
+            }
+
+            &_payment {
+                margin-top: 12px;
+
+                ul {
+                    display: flex;
+
+                    li {
+                        margin-right: 10px;
+                        margin-top: 6px;
+                    }
+                }
+            }
+        }
+
+
+    }
+}
+
+
+.footer_tibame {
+    background-color: #333;
+
+    p {
+        color: #9c9da0;
+        text-align: center;
+        font-size: 12px;
+        padding: 10px 0;
+
+        @include m {
+            padding: 15px 10px;
+            line-height: 1.6;
+        }
+    }
+}
