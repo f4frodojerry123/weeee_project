@@ -3,17 +3,26 @@ const { createApp } = Vue;
 createApp({
   data() {
     return {
-      pagenum: 1,
+      //  
       select_hot: false,
       select_bot: false,
       select_top: false,
       select_score: false,
-      page_show: {
+      // 
+
+      // 分頁器
+      pagenum: 1,// 當前頁數 
+      page_show: {// 要顯示的頁數
         start: 0,
         end: 5,
       },
+      // 分頁器
+
+      // 商品卡片開始&結尾
       start: 0,
       end: 5,
+      // 商品卡片開始&結尾
+
       cardlist: [],
       checked: {
         select_secondType: [],
@@ -107,14 +116,18 @@ createApp({
       return arr;
     },
     showpage() {
+
       if (this.totalpage.length < 5) {
         return this.totalpage;
+        // 若是總頁數小於5，直接回傳totalpage
       } else {
+        // 若是總頁數大於5
         if (this.page_show.end > this.totalpage.length - 1) {
           return this.totalpage.slice(
             this.totalpage.length - 5,
             this.totalpage.length
           );
+          // 若是總頁數大於5且
         } else {
           return this.totalpage.slice(this.page_show.start, this.page_show.end);
         }
@@ -124,20 +137,27 @@ createApp({
   watch: {
     totalpage: function (newValue, oldValue) {
       this.pagenum = 1;
+      // totalpage變動 == 商品列表改變，分頁器重置
     },
     pagenum: function (newValue, oldValue) {
+
       this.start = (newValue - 1) * 5;
       this.end = newValue * 5;
+      // 這裡改變要顯示在頁面上的商品卡片
+      // ex pagenum改變為2，顯示第6至10筆資料
 
+      
       if (newValue < 3) {
+        // 這裡上方應該為 if (newValue <= 3)
+        // 若是新的頁數小於3，分頁器不變
         this.page_show.start = 0;
         this.page_show.end = 5;
       } else {
+        // 若是新的頁數超過3，分頁器也要隨之改動
+        // ex 新的頁數為4，分頁器顯示第2~6頁
         this.page_show.start = newValue - 3;
         this.page_show.end = newValue + 2;
       }
-      // this.renderHeart()
-      // console.log("aaa");
     },
   },
   methods: {
